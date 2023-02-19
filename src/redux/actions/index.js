@@ -1,38 +1,22 @@
-import axios from "axios"
-import { GET_DATA } from "../constants"
+import { SET_EDITORS_CHOICE, SET_LATEST_ARTICLES, SET_LATEST_REVIEW } from "../constants";
 
-export const getAllData = () => (dispatch) => {
-  dispatch({
-    type: GET_DATA,
-    payload: {
-      load: true,
-      data: false,
-      error: false,
-      redirect: false
-    }
-  })
+export const setEditorsChoice = (data) => {
+  return {
+    type: SET_EDITORS_CHOICE,
+    payload: data,
+  };
+};
 
-  axios.get('https://virtserver.swaggerhub.com/hqms/FDN-WP/0.1/wp')
-    .then((res) => {
-      dispatch({
-        type: GET_DATA,
-        payload: {
-          load: false,
-          data: res.data,
-          error: false,
-          redirect: false
-        }
-      })
-    })
-    .catch((err) => {
-      dispatch({
-        type: GET_DATA,
-        payload: {
-          load: false,
-          data: false,
-          error: err,
-          redirect: false
-        }
-      })
-    })
-}
+export const setLatestArticles = (data) => {
+  return {
+    type: SET_LATEST_ARTICLES,
+    payload: data,
+  };
+};
+
+export const setLatestReview = (data) => {
+  return {
+    type: SET_LATEST_REVIEW,
+    payload: data,
+  };
+};

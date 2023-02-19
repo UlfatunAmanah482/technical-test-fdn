@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios"
-import * as API from '../redux/actions/index';
+import { setEditorsChoice, setLatestArticles, setLatestReview } from '../redux/actions/index';
 import Header from '../components/header';
 import Banner from '../components/banner';
 import Product from '../components/product';
@@ -36,33 +37,23 @@ let popularGroups = [
 ]
 
 const LandingPage = () => {
-  const [editorsChoice, setEditorsChoice] = React.useState([]);
-  const [latestArticles, setLatestArticles] = React.useState([]);
-  const [latestReviews, setLatestReviews] = React.useState([]);
+  const data = useSelector(state => state.data);
   const dispatch = useDispatch();
 
-  const getAllData = () => {
-    API.getAllData()
-    // .then((res) => {
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // })
-  }
-
-  React.useEffect(() => {
-    // API.getAllData()
-    axios.get('https://virtserver.swaggerhub.com/hqms/FDN-WP/0.1/wp')
+  const getAllData = async () => {
+    await axios.get('https://virtserver.swaggerhub.com/hqms/FDN-WP/0.1/wp')
       .then((res) => {
-        console.log(res.data)
-        setEditorsChoice(res.data["editor's choice"]);
-        setLatestArticles(res.data['latest articles']);
-        setLatestReviews(res.data['latest review']);
+        dispatch(setEditorsChoice(res.data["editor's choice"]));
+        dispatch(setLatestArticles(res.data["latest articles"]));
+        dispatch(setLatestReview(res.data["latest review"]));
       })
       .catch((err) => {
         console.log(err)
       })
+  }
+
+  React.useEffect(() => {
+    getAllData();
   }, [])
 
   return (
@@ -73,9 +64,9 @@ const LandingPage = () => {
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Editor's Choice</h5>
         <h6 className="font-semibold text-[#b2b2b0]">Curated with love</h6>
-        {editorsChoice.length > 0 && (
+        {data?.editorsChoice?.length > 0 && (
           <div className="grid md:grid-cols-5 grid-cols-2 gap-4 my-4">
-            {editorsChoice.map((item) => (
+            {data?.editorsChoice?.map((item) => (
               <Product item={item} />
             ))}
           </div>
@@ -94,9 +85,9 @@ const LandingPage = () => {
             </button>
           </div>
         </div>
-        {editorsChoice.length > 0 && (
+        {data?.editorsChoice?.length > 0 && (
           <div className="grid grid-cols-3 gap-5">
-            {editorsChoice.slice(0, 3).map((item) => (
+            {data?.editorsChoice?.slice(0, 3).map((item) => (
               <Product item={item} />
             ))}
           </div>
@@ -106,9 +97,9 @@ const LandingPage = () => {
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Latest Articles</h5>
         <h6 className="font-semibold text-[#b2b2b0]">So you can make better purchase decision</h6>
-        {latestArticles.length > 0 && (
+        {data?.latestArticles?.length > 0 && (
           <div className="grid md:grid-cols-3 grid-cols-1 gap-5 my-4">
-            {latestArticles.map((item, index) => (
+            {data?.latestArticles?.map((item, index) => (
               <div className="overflow-hidden" key={index}>
                 <img src={item?.image} alt="" className="rounded-lg" />
                 <div className="py-3">
@@ -129,9 +120,9 @@ const LandingPage = () => {
           <h6 className="font-semibold text-[#b2b2b0]">So you can make better purchase decision</h6>
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
-        {latestReviews.length > 0 && (
+        {data?.latestReview?.length > 0 && (
           <div className="relative grid md:grid-cols-3 grid-cols-1 gap-5 my-4">
-            {latestReviews.map((item, index) => (
+            {data?.latestReview?.map((item, index) => (
               <div className="bg-white rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden p-4" key={index}>
                 <div className="flex gap-4 items-center pb-4">
                   <img src={item?.product?.image} alt="" className="w-[50px] h-[50px] object-contain" />
@@ -183,7 +174,7 @@ const LandingPage = () => {
           <h6 className="font-semibold text-[#b2b2b0]">Watch and learn, ladies</h6>
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
-        {latestReviews.length > 0 && (
+        {data?.latestReview?.length > 0 && (
           <div className="relative grid md:grid-cols-2 grid-cols-1 gap-5 my-4">
             <div className="bg-gray-500 w-full h-[200px]"></div>
             <div className="grid grid-rows-2 gap-5">
@@ -196,9 +187,9 @@ const LandingPage = () => {
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Trending This Week</h5>
         <h6 className="font-semibold text-[#b2b2b0]">See our weekly most reviewed products</h6>
-        {editorsChoice.length > 0 && (
+        {data?.editorsChoice?.length > 0 && (
           <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2 gap-4 my-4">
-            {editorsChoice.map((item) => (
+            {data?.editorsChoice?.map((item) => (
               <Product item={item} />
             ))}
           </div>
@@ -210,9 +201,9 @@ const LandingPage = () => {
           <h6 className="font-semibold text-[#b2b2b0]">We all know and love</h6>
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
-        {latestReviews.length > 0 && (
+        {data?.latestReview?.length > 0 && (
           <div className="relative grid md:grid-cols-6 grid-cols-3 gap-5 my-4">
-            {latestReviews.map((item, index) => (
+            {data?.latestReview?.map((item, index) => (
               <div key={index}>
                 <img src={Person} alt="" />
               </div>

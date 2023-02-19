@@ -1,15 +1,29 @@
-import { GET_DATA } from "../constants";
+import { SET_LATEST_ARTICLES, SET_EDITORS_CHOICE, SET_LATEST_REVIEW } from "../constants";
 
 const initialState = {
-  editorChoice: []
+  editorsChoice: [],
+  latestArtiicles: [],
+  latestReview: [],
 }
 
-export const editorChoiceReducer = (state = initialState, action) => {
+export const dataReducer = (state = initialState, action) => {
   switch(action.type){
-    case GET_DATA:
+    case SET_EDITORS_CHOICE:
       return {
         ...state,
-        editorChoice: action.payload.data
+        editorsChoice: action.payload
+      }
+
+    case SET_LATEST_ARTICLES:
+      return {
+        ...state,
+        latestArtiicles: action.payload
+      }
+
+    case SET_LATEST_REVIEW:
+      return {
+        ...state,
+        latestReview: action.payload
       }
 
     default:
