@@ -6,6 +6,34 @@ import Header from '../components/header';
 import Banner from '../components/banner';
 import Product from '../components/product';
 import Person from '../assets/images/person.png';
+import Footer from '../components/footer';
+
+let popularGroups = [
+  {
+    id: "1",
+    image: Person,
+    title: "Embrace the Curl",
+    description: "May our curls pop and never stop"
+  },
+  {
+    id: "2",
+    image: Person,
+    title: "Embrace the Curl",
+    description: "May our curls pop and never stop"
+  },
+  {
+    id: "3",
+    image: Person,
+    title: "Embrace the Curl",
+    description: "May our curls pop and never stop"
+  },
+  {
+    id: "4",
+    image: Person,
+    title: "Embrace the Curl",
+    description: "May our curls pop and never stop"
+  },
+]
 
 const LandingPage = () => {
   const [editorsChoice, setEditorsChoice] = React.useState([]);
@@ -126,6 +154,84 @@ const LandingPage = () => {
           </div>
         )}
       </div>
+      <div className="w-[80%] mx-auto mb-10 mt-20">
+        <h5 className="font-semibold">Popular Groups</h5>
+        <div className="flex justify-between items-center gap-4">
+          <h6 className="font-semibold text-[#b2b2b0]">Where the beauty TALK are</h6>
+          <a href="/" className="text-[#ff7879]">{`See more >`}</a>
+        </div>
+        {popularGroups.length > 0 && (
+          <div className="relative grid md:grid-cols-4 grid-cols-2 gap-5 my-4">
+            {popularGroups.map((item, index) => (
+              <div className="bg-white flex flex-col gap-4 items-center rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden p-4 shadow-lg" key={index}>
+                <img src={item.image} alt="" className="rounded-full w-[150px]" />
+                <h5 className="md:text-xl text-lg font-bold">{item.title}</h5>
+                <div className="flex justify-between items-center gap-4 mt-5">
+                  <img src="https://img.icons8.com/ios-glyphs/30/null/user-female--v1.png" alt="" />
+                  <img src="https://img.icons8.com/ios-glyphs/30/null/overview-pages-3--v1.png" alt="" />
+                  <img src="https://img.icons8.com/windows/30/null/chat-message.png" alt="" />
+                </div>
+                <p className="md:text-sm text-xs font-medium text-center">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="w-[80%] mx-auto my-10">
+        <h5 className="font-semibold">Latest Videos</h5>
+        <div className="flex justify-between items-center gap-4">
+          <h6 className="font-semibold text-[#b2b2b0]">Watch and learn, ladies</h6>
+          <a href="/" className="text-[#ff7879]">{`See more >`}</a>
+        </div>
+        {latestReviews.length > 0 && (
+          <div className="relative grid md:grid-cols-2 grid-cols-1 gap-5 my-4">
+            <div className="bg-gray-500 w-full h-[200px]"></div>
+            <div className="grid grid-rows-2 gap-5">
+              <div className="bg-gray-500 w-full"></div>
+              <div className="bg-gray-500 w-full"></div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="w-[80%] mx-auto my-10">
+        <h5 className="font-semibold">Trending This Week</h5>
+        <h6 className="font-semibold text-[#b2b2b0]">See our weekly most reviewed products</h6>
+        {editorsChoice.length > 0 && (
+          <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2 gap-4 my-4">
+            {editorsChoice.map((item) => (
+              <Product item={item} />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="w-[80%] mx-auto my-10">
+        <h5 className="font-semibold">Top Brands</h5>
+        <div className="flex justify-between items-center gap-4">
+          <h6 className="font-semibold text-[#b2b2b0]">We all know and love</h6>
+          <a href="/" className="text-[#ff7879]">{`See more >`}</a>
+        </div>
+        {latestReviews.length > 0 && (
+          <div className="relative grid md:grid-cols-6 grid-cols-3 gap-5 my-4">
+            {latestReviews.map((item, index) => (
+              <div key={index}>
+                <img src={Person} alt="" />
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="w-[80%] mx-auto mt-4 mb-10">
+        <h5 className="md:text-xl text-lg font-bold">
+          Female Daily - Find everything you want to know about beauty on Female Daily
+        </h5>
+        <p className="md:text-base text-sm font-medium">
+          Product Reviews, Tips & Tricks, Expert and Consumer Opinions, Beauy Tutorials, Discussions, Beauty Workshops, anything!
+          <br />
+          We are here to be your friendly solution to all things beauty, inside and out!
+        </p>
+      </div>
+      <hr />
+      <Footer />
     </div>
   )
 }
