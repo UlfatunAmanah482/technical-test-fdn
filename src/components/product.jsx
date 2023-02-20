@@ -9,11 +9,11 @@ const Product = (props) => {
   }, [])
 
   return (
-    <div className="bg-white rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden">
-      <img src={data?.product?.image} alt="" />
+    <div className="bg-white rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden" key={props.index}>
+      <img src={data?.product?.image || data?.image} alt="" />
       <div className="p-3">
-        <h5 className="uppercase font-bold">{data?.product?.name}</h5>
-        <p className="font-medium">{data?.product?.description}</p>
+        <h5 className="uppercase font-bold">{data?.product?.name || data?.name}</h5>
+        <p className="font-medium">{data?.product?.description || data?.description}</p>
       </div>
     </div>
   )

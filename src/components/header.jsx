@@ -1,4 +1,5 @@
 import React from 'react';
+import FDNLogo from '../assets/images/FDNLogo.png';
 
 let categories = [
   {
@@ -48,6 +49,7 @@ const Header = () => {
     <section className="mb-3">
       <div className="flex items-center justify-between gap-5 mb-3">
         <img src="https://img.icons8.com/ios-glyphs/30/null/overview-pages-3--v1.png" alt="" />
+        <img src={FDNLogo} alt="" />
         <form action="" className="w-full">
           <div className="relative flex items-center text-gray-400">
             <img src="https://img.icons8.com/ios/25/848383/search--v1.png" alt="" className="absolute pointer-events-none ml-2" />

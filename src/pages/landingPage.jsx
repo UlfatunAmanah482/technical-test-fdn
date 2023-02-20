@@ -6,33 +6,118 @@ import { setEditorsChoice, setLatestArticles, setLatestReview } from '../redux/a
 import Header from '../components/header';
 import Banner from '../components/banner';
 import Product from '../components/product';
-import Person from '../assets/images/person.png';
 import Footer from '../components/footer';
+import Nivea from '../assets/images/brands/nivea.png';
+import TheOrdinary from '../assets/images/brands/the_ordinary.png';
+import SKII from '../assets/images/brands/skII.png';
+import TheBodyShop from '../assets/images/brands/the_body_shop.png';
+import Maybelline from '../assets/images/brands/maybelline.png';
+import Innisfree from '../assets/images/brands/innisfree.png';
+import Profile1 from '../assets/images/profiles/profile1.png';
+import Profile2 from '../assets/images/profiles/profile2.png';
+import Profile3 from '../assets/images/profiles/profile3.png';
+import Profile4 from '../assets/images/profiles/profile4.png';
+import Product1 from '../assets/images/products/product1.png';
+import Product2 from '../assets/images/products/product2.png';
+import Product3 from '../assets/images/products/product3.png';
+import Product4 from '../assets/images/products/product4.png';
 
 let popularGroups = [
   {
     id: "1",
-    image: Person,
+    image: Profile1,
     title: "Embrace the Curl",
     description: "May our curls pop and never stop"
   },
   {
     id: "2",
-    image: Person,
+    image: Profile2,
     title: "Embrace the Curl",
     description: "May our curls pop and never stop"
   },
   {
     id: "3",
-    image: Person,
+    image: Profile3,
     title: "Embrace the Curl",
     description: "May our curls pop and never stop"
   },
   {
     id: "4",
-    image: Person,
+    image: Profile4,
     title: "Embrace the Curl",
     description: "May our curls pop and never stop"
+  },
+]
+
+let brands = [
+  {
+    id: "1",
+    image: Nivea,
+  },
+  {
+    id: "2",
+    image: TheOrdinary,
+  },
+  {
+    id: "3",
+    image: SKII,
+  },
+  {
+    id: "4",
+    image: TheBodyShop,
+  },
+  {
+    id: "5",
+    image: Maybelline,
+  },
+  {
+    id: "6",
+    image: Innisfree,
+  },
+]
+
+let trending = [
+  {
+    id: "1",
+    image: Product1,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
+  },
+  {
+    id: "2",
+    image: Product2,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
+  },
+  {
+    id: "3",
+    image: Product3,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
+  },
+  {
+    id: "4",
+    image: Product4,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
+  },
+  {
+    id: "5",
+    image: Product1,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
+  },
+  {
+    id: "6",
+    image: Product2,
+    name: "CKINCEUTICALS",
+    description: "C E Ferulic",
+    rating: 4.9
   },
 ]
 
@@ -66,8 +151,8 @@ const LandingPage = () => {
         <h6 className="font-semibold text-[#b2b2b0]">Curated with love</h6>
         {data?.editorsChoice?.length > 0 && (
           <div className="grid md:grid-cols-5 grid-cols-2 gap-4 my-4">
-            {data?.editorsChoice?.map((item) => (
-              <Product item={item} />
+            {data?.editorsChoice?.map((item, index) => (
+              <Product item={item} key={index} />
             ))}
           </div>
         )}
@@ -87,8 +172,8 @@ const LandingPage = () => {
         </div>
         {data?.editorsChoice?.length > 0 && (
           <div className="grid grid-cols-3 gap-5">
-            {data?.editorsChoice?.slice(0, 3).map((item) => (
-              <Product item={item} />
+            {data?.editorsChoice?.slice(0, 3).map((item, index) => (
+              <Product item={item} key={index} />
             ))}
           </div>
         )}
@@ -136,7 +221,7 @@ const LandingPage = () => {
                   <p className="text-[#6c6c6b] font-medium">{item?.comment}</p>
                 </div>
                 <div className="absolute flex flex-col items-center z-50">
-                  <img src={Person} alt="" className="rounded-full" />
+                  <img src={Profile1} alt="" className="rounded-full" />
                   <h6 className="text-[#6c6c6b] font-medium">{item?.user}</h6>
                   <p className="text-xs text-[#b3b3b1]">{item?.profile[0]}, {item?.profile[3]}</p>
                 </div>
@@ -187,10 +272,10 @@ const LandingPage = () => {
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Trending This Week</h5>
         <h6 className="font-semibold text-[#b2b2b0]">See our weekly most reviewed products</h6>
-        {data?.editorsChoice?.length > 0 && (
+        {trending.length > 0 && (
           <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2 gap-4 my-4">
-            {data?.editorsChoice?.map((item) => (
-              <Product item={item} />
+            {trending.map((item, index) => (
+              <Product item={item} key={index} />
             ))}
           </div>
         )}
@@ -201,11 +286,11 @@ const LandingPage = () => {
           <h6 className="font-semibold text-[#b2b2b0]">We all know and love</h6>
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
-        {data?.latestReview?.length > 0 && (
+        {brands.length > 0 && (
           <div className="relative grid md:grid-cols-6 grid-cols-3 gap-5 my-4">
-            {data?.latestReview?.map((item, index) => (
-              <div key={index}>
-                <img src={Person} alt="" />
+            {brands.map((item) => (
+              <div key={item.id}>
+                <img src={item.image} alt="" />
               </div>
             ))}
           </div>
