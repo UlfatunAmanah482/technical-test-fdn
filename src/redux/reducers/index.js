@@ -2,7 +2,7 @@ import { SET_LATEST_ARTICLES, SET_EDITORS_CHOICE, SET_LATEST_REVIEW } from "../c
 
 const initialState = {
   editorsChoice: [],
-  latestArtiicles: [],
+  latestArticles: [],
   latestReview: [],
 }
 
@@ -17,7 +17,7 @@ export const dataReducer = (state = initialState, action) => {
     case SET_LATEST_ARTICLES:
       return {
         ...state,
-        latestArtiicles: action.payload
+        latestArticles: action.payload
       }
 
     case SET_LATEST_REVIEW:

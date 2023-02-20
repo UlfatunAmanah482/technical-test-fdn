@@ -21,6 +21,15 @@ import Product1 from '../assets/images/products/product1.png';
 import Product2 from '../assets/images/products/product2.png';
 import Product3 from '../assets/images/products/product3.png';
 import Product4 from '../assets/images/products/product4.png';
+import ImageBanner from '../assets/images/image_banner.png';
+import BannerVideo1 from '../assets/images/banner_video1.png';
+import BannerVideo2 from '../assets/images/banner_video2.png';
+import BannerVideo3 from '../assets/images/banner_video3.png';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination'; import { Pagination } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 let popularGroups = [
   {
@@ -139,26 +148,37 @@ const LandingPage = () => {
 
   React.useEffect(() => {
     getAllData();
+    console.log(data)
   }, [])
 
   return (
     <div className="mx-5 my-3 min-h-screen h-full">
       <Header />
-      <Banner height="[50px]" width="[970px]" title="Top Frame 970x50" />
-      <Banner height="[250px]" width="[970px]" title="Billboard 970x250" />
+      <Banner type="small" title="Top Frame 970x50" />
+      <Banner type="large" title="Billboard 970x250" />
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Editor's Choice</h5>
         <h6 className="font-semibold text-[#b2b2b0]">Curated with love</h6>
         {data?.editorsChoice?.length > 0 && (
-          <div className="grid md:grid-cols-5 grid-cols-2 gap-4 my-4">
+          <div className="grid md:grid-cols-5 relative grid-cols-2 gap-4 mb-4 mt-12">
             {data?.editorsChoice?.map((item, index) => (
-              <Product item={item} key={index} />
+              <div>
+                <div className="absolute flex items-center gap-3 z-50 -top-[40px] ml-5">
+                  <img src={Profile1} alt="" className="rounded-full" width={50} />
+                  <div>
+                    <h6 className="text-[#6c6c6b] text-sm font-medium">{item?.editor}</h6>
+                    <p className="text-xs text-[#b3b3b1]">{item?.role}</p>
+                  </div>
+                </div>
+                <Product item={item} key={index} />
+              </div>
             ))}
           </div>
         )}
       </div>
-      <div className="w-[85%] mx-auto bg-[#ffdad7] flex items-center p-3 mb-10">
-        <div className="ml-[150px] w-1/2 p-5">
+      <div className="w-[85%] mx-auto bg-[#ffdad7] flex items-center mb-10">
+        <img src={ImageBanner} alt="" />
+        <div className="w-1/2 p-5">
           <b>Looking for products that are just simply perfect for you?</b>
           <p className="font-medium">Hereare some products that we believe match your skin, hair, and body! Have we mentioned that thet solve your concerns too?</p>
           <div className="text-end">
@@ -171,14 +191,14 @@ const LandingPage = () => {
           </div>
         </div>
         {data?.editorsChoice?.length > 0 && (
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 gap-5 mx-4">
             {data?.editorsChoice?.slice(0, 3).map((item, index) => (
               <Product item={item} key={index} />
             ))}
           </div>
         )}
       </div>
-      <Banner height="[250px]" width="[970px]" title="Billboard 970x250 (Internal Campaign Only)" />
+      <Banner type="large" title="Billboard 970x250 (Internal Campaign Only)" />
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Latest Articles</h5>
         <h6 className="font-semibold text-[#b2b2b0]">So you can make better purchase decision</h6>
@@ -206,28 +226,54 @@ const LandingPage = () => {
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
         {data?.latestReview?.length > 0 && (
-          <div className="relative grid md:grid-cols-3 grid-cols-1 gap-5 my-4">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+              },
+            }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
             {data?.latestReview?.map((item, index) => (
-              <div className="bg-white rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden p-4" key={index}>
-                <div className="flex gap-4 items-center pb-4">
-                  <img src={item?.product?.image} alt="" className="w-[50px] h-[50px] object-contain" />
-                  <div>
-                    <h5 className="md:text-base text-sm font-bold uppercase">{item?.product?.name}</h5>
-                    <h6 className="md:text-sm text-xs text-[#191919] font-medium">{item?.product?.desc}</h6>
+              <SwiperSlide>
+                <div className="bg-white" key={index}>
+                  <div className=" rounded-lg border-[1px] border-[#f0f0ee] overflow-hidden p-4 mb-5">
+                  <div className="flex gap-4 items-center pb-4">
+                    <img src={item?.product?.image} alt="" className="w-[50px] h-[50px] object-contain" />
+                    <div>
+                      <h5 className="md:text-base text-sm font-bold uppercase">{item?.product?.name}</h5>
+                      <h6 className="md:text-sm text-xs text-[#191919] font-medium">{item?.product?.desc}</h6>
+                    </div>
+                  </div>
+                  <hr />
+                  <div className="pt-3">
+                    <p className="text-[#6c6c6b] font-medium">{item?.comment}</p>
+                  </div>
+                  </div>
+                  <div className="flex flex-col items-center z-50 -mt-[40px]">
+                    <img src={Profile1} alt="" className="rounded-full" width={50} />
+                    <h6 className="text-[#6c6c6b] text-sm font-medium">{item?.user}</h6>
+                    <p className="text-xs text-[#b3b3b1]">{item?.profile[0]}, {item?.profile[3]}</p>
                   </div>
                 </div>
-                <hr />
-                <div className="pt-3">
-                  <p className="text-[#6c6c6b] font-medium">{item?.comment}</p>
-                </div>
-                <div className="absolute flex flex-col items-center z-50">
-                  <img src={Profile1} alt="" className="rounded-full" />
-                  <h6 className="text-[#6c6c6b] font-medium">{item?.user}</h6>
-                  <p className="text-xs text-[#b3b3b1]">{item?.profile[0]}, {item?.profile[3]}</p>
-                </div>
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         )}
       </div>
       <div className="w-[80%] mx-auto mb-10 mt-20">
@@ -259,15 +305,13 @@ const LandingPage = () => {
           <h6 className="font-semibold text-[#b2b2b0]">Watch and learn, ladies</h6>
           <a href="/" className="text-[#ff7879]">{`See more >`}</a>
         </div>
-        {data?.latestReview?.length > 0 && (
-          <div className="relative grid md:grid-cols-2 grid-cols-1 gap-5 my-4">
-            <div className="bg-gray-500 w-full h-[200px]"></div>
-            <div className="grid grid-rows-2 gap-5">
-              <div className="bg-gray-500 w-full"></div>
-              <div className="bg-gray-500 w-full"></div>
-            </div>
+        <div className="relative grid md:grid-cols-3 grid-cols-1 gap-3 my-4">
+          <img src={BannerVideo1} alt="" className="h-full col-span-2" />
+          <div className="grid grid-rows-2 gap-5">
+            <img src={BannerVideo2} alt="" />
+            <img src={BannerVideo3} alt="" />
           </div>
-        )}
+        </div>
       </div>
       <div className="w-[80%] mx-auto my-10">
         <h5 className="font-semibold">Trending This Week</h5>
