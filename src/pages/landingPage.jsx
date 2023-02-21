@@ -96,22 +96,25 @@ let trending = [
   {
     id: "2",
     image: Product2,
-    name: "CKINCEUTICALS",
-    description: "C E Ferulic",
+    name: "JUICE BEAUTY",
+    description: "Phyto-Pigments Flawless Serum",
+    variant: "Rosy Beige",
     rating: 4.9
   },
   {
     id: "3",
     image: Product3,
-    name: "CKINCEUTICALS",
-    description: "C E Ferulic",
+    name: "JUICE BEAUTY",
+    description: "Pure Pressed Blush",
+    variant: "Neutral Rose",
     rating: 4.9
   },
   {
     id: "4",
     image: Product4,
-    name: "CKINCEUTICALS",
-    description: "C E Ferulic",
+    name: "VAL BY VALERIE THOMAS",
+    description: "Pure Pressed Blush",
+    variant: "Neutral Rose",
     rating: 4.9
   },
   {
@@ -119,13 +122,15 @@ let trending = [
     image: Product1,
     name: "CKINCEUTICALS",
     description: "C E Ferulic",
+    variant: "",
     rating: 4.9
   },
   {
     id: "6",
     image: Product2,
-    name: "CKINCEUTICALS",
-    description: "C E Ferulic",
+    name: "JUICE BEAUTY",
+    description: "Phyto-Pigments Flawless Serum",
+    variant: "Rosy Beige",
     rating: 4.9
   },
 ]
@@ -162,7 +167,7 @@ const LandingPage = () => {
         {data?.editorsChoice?.length > 0 && (
           <div className="grid md:grid-cols-5 relative grid-cols-2 gap-4 mb-4 mt-12">
             {data?.editorsChoice?.map((item, index) => (
-              <div>
+              <div key={index}>
                 <div className="absolute flex items-center gap-3 z-50 -top-[40px] ml-5">
                   <img src={Profile1} alt="" className="rounded-full" width={50} />
                   <div>
@@ -170,7 +175,7 @@ const LandingPage = () => {
                     <p className="text-xs text-[#b3b3b1]">{item?.role}</p>
                   </div>
                 </div>
-                <Product item={item} key={index} />
+                <Product item={item} key={index} border={true} />
               </div>
             ))}
           </div>
@@ -193,7 +198,7 @@ const LandingPage = () => {
         {data?.editorsChoice?.length > 0 && (
           <div className="grid grid-cols-3 gap-5 mx-4">
             {data?.editorsChoice?.slice(0, 3).map((item, index) => (
-              <Product item={item} key={index} />
+              <Product item={item} key={index} border={true} />
             ))}
           </div>
         )}
@@ -317,11 +322,35 @@ const LandingPage = () => {
         <h5 className="font-semibold">Trending This Week</h5>
         <h6 className="font-semibold text-[#b2b2b0]">See our weekly most reviewed products</h6>
         {trending.length > 0 && (
-          <div className="grid md:grid-cols-6 sm:grid-cols-3 grid-cols-2 gap-4 my-4">
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={10}
+            pagination={{
+              clickable: true,
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 16,
+              },
+              1024: {
+                slidesPerView: 6,
+                spaceBetween: 16,
+              },
+            }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
             {trending.map((item, index) => (
-              <Product item={item} key={index} />
-            ))}
-          </div>
+                <SwiperSlide key={index}>
+                  <Product item={item} border={false} />
+                </SwiperSlide>
+              ))}
+          </Swiper>
         )}
       </div>
       <div className="w-[80%] mx-auto my-10">
